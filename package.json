@@ -1,0 +1,19 @@
+{
+  "name": "@esscorp/clean",
+  "version": "0.0.1",
+  "description": "Module to clean dirty strings.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/estrat/clean.git"
+  },
+  "author": "Daniel Hollenbeck",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/estrat/clean/issues"
+  },
+  "homepage": "https://github.com/estrat/clean#readme"
+}
