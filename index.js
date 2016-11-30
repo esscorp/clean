@@ -1,14 +1,11 @@
 'use strict';
 
-// var ns = 'Models.iam.utilities.';
-
 var _ = require('underscore');
 var Assert = require('assert');
 var Clean = require('underscore.string/clean');
 var Moment = require('moment');
 var Phone = require('@esscorp/gphone');
 
-// var Logger = require('../../logger').backend;
 
 exports.licet = function(str) {
 	return Clean(str);
