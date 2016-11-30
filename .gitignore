@@ -1,0 +1,14 @@
+# Dependency directory
+node_modules
+
+# Logs
+logs
+*.log
+npm-debug.log
+.DS_Store
+
+# Grunt intermediate storage (http://gruntjs.com/creating-plugins#storing-task-files)
+.grunt
+
+# Optional npm cache directory
+.npm
