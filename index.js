@@ -58,10 +58,10 @@ exports.matches = function(str1, str2) {
 	var escaped1 = exports._escapeRegex(str1);
 	var escaped2 = exports._escapeRegex(str2);
 
-	var found1 = new RegExp(escaped1).test(str2);
-	var found2 = new RegExp(escaped2).test(str1);
+	var found = new RegExp(escaped1).test(str2);
+	if (!found) found = new RegExp(escaped2).test(str1);
 
-	return found1 || found2;
+	return found;
 };
 
 exports.nameBase = function(name) {
