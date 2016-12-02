@@ -22,14 +22,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/estrat/clean.git"
+    "url": "git+https://github.com/esscorp/clean.git"
   },
   "author": "Daniel Hollenbeck",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/estrat/clean/issues"
+    "url": "https://github.com/esscorp/clean/issues"
   },
-  "homepage": "https://github.com/estrat/clean#readme",
+  "homepage": "https://github.com/esscorp/clean#readme",
   "keywords": [
     "clean",
     "string",
