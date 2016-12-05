@@ -10,8 +10,8 @@
     "underscore.string": "^3.3.4"
   },
   "devDependencies": {
+    "@esscorp/eslint": "^1.0.10",
     "eslint": "^3.11.1",
-    "eslint-config-ess": "^1.0.7",
     "grunt": "^1.0.1",
     "grunt-contrib-watch": "^1.0.0",
     "grunt-eslint": "^19.0.0",
