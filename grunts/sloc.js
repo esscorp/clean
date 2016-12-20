@@ -7,17 +7,19 @@ module.exports = function(grunt) {
 		options: {
 			reportType: 'stdout',
 			reportDetail: true
-
+			// tolerant: true
 		},
 		'all': {
 			files: {
-				'.': ['**/*.*']
+				'.': ['**']
 			}
 		},
 		'ours': {
 			files: {
-				'.': ['*.*'],
-				'./grunts': ['**.*']
+				'.': [
+					'**',
+					'!**/node_modules/**'
+				]
 			}
 		}
 	});
