@@ -7,6 +7,8 @@ var Moment = require('moment');
 var Phone = require('@esscorp/gphone');
 
 
+exports.trim = Clean;
+
 exports.licet = function(str) {
 	return Clean(str);
 };
