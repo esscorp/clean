@@ -11,6 +11,7 @@ module.exports = function(grunt) {
 			options: {
 				config: 'node_modules/@esscorp/eslint/configs/backend.js'
 			},
+			nonull: true,
 			src: [
 				'*.js',
 				'grunts/**/*.js'
