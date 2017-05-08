@@ -90,9 +90,9 @@ exports.nameParse = function(name) {
 
 	if (!name) return parsed;
 
-	var trimmed = exports._trimNonAlphaFromSides(name);
-
-	var words = exports._splitName(trimmed);
+	var cleaned = exports._trimNonAlphaFromSides(name);
+	cleaned = exports._compressHyphenatedWords(cleaned);
+	var words = exports._splitName(cleaned);
 
 	var isOneWord = (words.length < 2);
 	if (isOneWord) {
@@ -116,14 +116,25 @@ exports.nameParse = function(name) {
 			suffixes.push(word);
 
 		} else {
-			// If we found a suffix before reaching the end,
-			// assume it was a false positive.
+			// If we found any suffixes before reaching the end,
+			// assume they were false positives.
 			if (suffixes.length) {
 				bases = suffixes;
 				suffixes = [];
 			}
 
-			bases.push(word);
+			var hasHyphen = _.contains(word, '-');
+			if (hasHyphen) {
+
+				var hyphenatedGroup = word.split('-'); // 'Smith-Carpenter' to ['Smith', 'Carpenter']
+				var base = hyphenatedGroup[0];
+				var hyphenatedSuffixes = hyphenatedGroup.slice(1);
+
+				bases.push(base);
+				suffixes.push.apply(suffixes, hyphenatedSuffixes);
+			} else {
+				bases.push(word);
+			}
 		}
 	});
 
@@ -155,8 +166,12 @@ exports._trimNonAlphaFromSides = function(str) {
 	return str.replace(reInvalidBegWords, '$1').replace(reInvalidEndWords, '$1');
 };
 
+exports._compressHyphenatedWords = function(str) {
+	return str.replace(/\s-+\s/, '-'); // 'Smith - Carpenter' to 'Smith-Carpenter'
+};
+
 exports._splitName = function(name) {
-	var spliter = /[\s-,]+/;
+	var spliter = /[\s,]+/;
 	return name.split(spliter); // "Dr. Bob Kelso,Jr.-M.D." to ["Dr.", "Bob", "Kelso", "Jr.", "M.D."]
 };
 
