@@ -92,13 +92,21 @@ exports.nameParse = function(name) {
 
 	var cleaned = exports._trimNonAlphaFromSides(name);
 	var words = exports._splitName(cleaned);
+	var categorized = exports._categorize(words);
+	var prefixes = categorized.prefixes;
+	var suffixes = categorized.suffixes;
+	var bases = categorized.bases;
 
-	var isOneWord = (words.length < 2);
-	if (isOneWord) {
-		//return early
-		parsed.base = _.first(words);
-		return parsed;
-	}
+	parsed.prefix = prefixes.join(' ');
+	parsed.suffix = suffixes.join(' ');
+	parsed.base = bases.join(' ');
+
+	return parsed;
+};
+
+exports._categorize = function(words) {
+
+	Assert.ok(_.isArray(words), 'Param `words` must be an array');
 
 	var prefixes = [];
 	var suffixes = [];
@@ -129,14 +137,17 @@ exports.nameParse = function(name) {
 	// If we found only prefixes,
 	// assume the last one was an actual name.
 	if (!bases.length && prefixes.length) {
-		bases.push(prefixes.pop());
+		var popped = prefixes.pop();
+		bases.push(popped);
 	}
 
-	parsed.prefix = prefixes.join(' ');
-	parsed.suffix = suffixes.join(' ');
-	parsed.base = bases.join(' ');
+	var categorized = {
+		prefixes: prefixes,
+		suffixes: suffixes,
+		bases: bases
+	};
 
-	return parsed;
+	return categorized;
 };
 
 exports.isSameDate = function(date1, date2) {
