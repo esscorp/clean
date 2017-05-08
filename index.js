@@ -138,7 +138,8 @@ exports._categorize = function(words) {
 		} else {
 			// If we found any suffixes before reaching the end,
 			// assume they were false positives.
-			if (suffixes.length) {
+			var earlySuffixes = (!!suffixes.length);
+			if (earlySuffixes) {
 				bases = suffixes;
 				suffixes = [];
 			}
@@ -148,8 +149,8 @@ exports._categorize = function(words) {
 			// then split the word by the hyphen and categorize the new words.
 			// If `word` has no suffixes attached by hyphens, (e.g., 'Smith-Carpenter'
 			// then assume it is a maiden name and add it to `bases` as-is.
-			var unhyphenated = word.split('-');
-			var categorized = exports._categorize(unhyphenated); // recursive case
+			var hyphenations = word.split('-');
+			var categorized = exports._categorize(hyphenations); // recursive case
 			var isMaiden = (!categorized.suffixes.length);
 			if (isMaiden) {
 				bases.push(word); // 'Smith-Carpenter'
