@@ -91,6 +91,7 @@ exports.nameParse = function(name) {
 	if (!name) return parsed;
 
 	var cleaned = exports._trimNonAlphaFromSides(name);
+	cleaned = exports._compressHyphenatedWords(cleaned);
 	var words = exports._splitName(cleaned);
 	var categorized = exports._categorize(words);
 	var prefixes = categorized.prefixes;
@@ -107,6 +108,18 @@ exports.nameParse = function(name) {
 exports._categorize = function(words) {
 
 	Assert.ok(_.isArray(words), 'Param `words` must be an array');
+
+	if (!words.length) return {
+		prefixes: [],
+		suffixes: [],
+		bases: []
+	};
+
+	if (words.length === 1) return { // base case
+		prefixes: [],
+		suffixes: [],
+		bases: [words[0]]
+	};
 
 	var prefixes = [];
 	var suffixes = [];
@@ -130,7 +143,20 @@ exports._categorize = function(words) {
 				suffixes = [];
 			}
 
-			bases.push(word);
+			// Handle different cases 'Smith-Carpenter' and 'Smith-II'.
+			// If `word` has a suffix attached by a hyphen (e.g., 'Smith-II'),
+			// then split the word by the hyphen and categorize the new words.
+			// If `word` has no suffixes attached by hyphens, (e.g., 'Smith-Carpenter'
+			// then assume it is a maiden name and add it to `bases` as-is.
+			var unhyphenated = word.split('-');
+			var categorized = exports._categorize(unhyphenated); // recursive case
+			var isMaiden = (!categorized.suffixes.length);
+			if (isMaiden) {
+				bases.push(word); // 'Smith-Carpenter'
+			} else {
+				bases.push.apply(bases, categorized.bases); // 'Smith'
+				suffixes.push.apply(suffixes, categorized.suffixes); // 'II'
+			}
 		}
 	});
 
@@ -171,8 +197,12 @@ exports._trimNonAlphaFromSides = function(str) {
 	return str.replace(reInvalidBegWords, '$1').replace(reInvalidEndWords, '$1');
 };
 
+exports._compressHyphenatedWords = function(str) {
+	return str.replace(/\s-+\s/, '-'); // 'Smith - Carpenter' to 'Smith-Carpenter'
+};
+
 exports._splitName = function(name) {
-	var spliter = /[\s-,]+/;
+	var spliter = /[\s,]+/;
 	return name.split(spliter); // "Dr. Bob Kelso,Jr.-M.D." to ["Dr.", "Bob", "Kelso", "Jr.", "M.D."]
 };
 

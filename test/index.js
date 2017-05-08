@@ -64,7 +64,7 @@ describe('nameParse()', function() {
 		check('-Dr Professor Farnsworth - Ph.D.', 'Dr Professor', 'Farnsworth', 'Ph.D.');
 	});
 
-	// it('should return a maiden name as a suffix', function() {
-	// 	check('Jane Smith - Carpenter', '', 'Jane Smith', 'Carpenter');
-	// });
+	it('should return a maiden name as a suffix', function() {
+		check('Jane Smith - Carpenter', '', 'Jane Smith-Carpenter', '');
+	});
 });
