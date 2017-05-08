@@ -101,24 +101,35 @@ exports.nameParse = function(name) {
 		return parsed;
 	}
 
-	var foundBase = false;
+	var prefixes = [];
+	var suffixes = [];
+	var bases = [];
+
 	words.forEach(function(word) {
 
+		var foundBase = bases.length;
+
 		if (!foundBase && exports._isPrefix(word)) {
-			parsed.prefix = exports._addAndPad(parsed.prefix, word);
+			prefixes.push(word);
 
 		} else if (foundBase && exports._isSuffix(word)) {
-			parsed.suffix = exports._addAndPad(parsed.suffix, word);
+			suffixes.push(word);
 
 		} else {
-			foundBase = true;
 			// If we found a suffix before reaching the end,
 			// assume it was a false positive.
-			if (parsed.suffix) parsed.suffix = '';
+			if (suffixes.length) {
+				bases = suffixes;
+				suffixes = [];
+			}
+
+			bases.push(word);
 		}
 	});
 
-	parsed.base = exports._trimPrefixSuffix(trimmed, parsed.prefix, parsed.suffix);
+	parsed.prefix = prefixes.join(' ');
+	parsed.suffix = suffixes.join(' ');
+	parsed.base = bases.join(' ');
 
 	return parsed;
 };
@@ -149,29 +160,8 @@ exports._splitName = function(name) {
 	return name.split(spliter); // "Dr. Bob Kelso,Jr.-M.D." to ["Dr.", "Bob", "Kelso", "Jr.", "M.D."]
 };
 
-exports._trimPrefixSuffix = function(str, prefix, suffix) {
-	var prefixEscaped = exports._escapeRegex(prefix);
-	var suffixEscaped = exports._escapeRegex(suffix);
-
-	var rePrefix = new RegExp('^' + prefixEscaped);
-	var reSuffix = new RegExp(suffixEscaped + '$');
-
-	var trimmed = str.replace(rePrefix, '').replace(reSuffix, '');
-
-	return exports._shaveEnds(trimmed);
-};
-
 exports._escapeRegex = function(str) {
 	return str.replace(/[.?*+^$[\]\\(){}|-]/g, '\\$&'); // "(Bob)" to "\(Bob\)"
-};
-
-exports._shaveEnds = function(str) {
-	var reInvalidEnds = /(^[\s-,]*)(.*?)([\s-,]*$)/;
-	return str.replace(reInvalidEnds, '$2'); // "-Bob," to "Bob"
-};
-
-exports._addAndPad = function(str, addition) {
-	return (!str) ? addition : str + ' ' + addition;
 };
 
 //todo: edit these. Remove unneeded and add additional needed.
