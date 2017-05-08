@@ -126,6 +126,12 @@ exports.nameParse = function(name) {
 		}
 	});
 
+	// If we found only prefixes,
+	// assume the last one was an actual name.
+	if (!bases.length && prefixes.length) {
+		bases.push(prefixes.pop());
+	}
+
 	parsed.prefix = prefixes.join(' ');
 	parsed.suffix = suffixes.join(' ');
 	parsed.base = bases.join(' ');
