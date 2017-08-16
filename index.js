@@ -18,7 +18,8 @@ exports.date = function(date) {
 };
 
 exports.phone = function(str) {
-	return Phone.format(str, 'E164');
+	var digits = exports._removeNonDigits(str);
+	return Phone.format(digits, 'E164');
 };
 
 exports.license = function(str) {
@@ -266,4 +267,9 @@ exports._containsLoose = function(collection, word) {
 exports._removeNonAlpha = function(str) {
 	var reNonAlpha = /[^A-Za-z]/g;
 	return str.replace(reNonAlpha, ''); // "M.D." to "MD"
+};
+
+exports._removeNonDigits = function(str) {
+	var reNonDigits = /[^0-9]/g;
+	return str.replace(reNonDigits, '');
 };
