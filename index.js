@@ -18,6 +18,7 @@ exports.date = function(date) {
 };
 
 exports.phone = function(str) {
+	if (!str) return;
 	var digits = exports._removeNonDigits(str);
 	return Phone.format(digits, 'E164');
 };
