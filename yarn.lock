@@ -8,9 +8,9 @@
   dependencies:
     eslint-plugin-import "^2.2.0"
 
-"@esscorp/gphone@0.0.9":
-  version "0.0.9"
-  resolved "https://registry.yarnpkg.com/@esscorp/gphone/-/gphone-0.0.9.tgz#a401628bee09cd159ec6d5feb4e99dc2c2c71d6a"
+"@esscorp/gphone@0.0.11":
+  version "0.0.11"
+  resolved "https://registry.yarnpkg.com/@esscorp/gphone/-/gphone-0.0.11.tgz#9601e8be3235945e4122f61bdbf7984e150f8282"
   dependencies:
     google-libphonenumber "^2.0.6"
     handlebars "^4.0.6"
