@@ -1,6 +1,6 @@
 {
   "name": "@esscorp/clean",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "description": "Module to clean dirty strings.",
   "main": "index.js",
   "dependencies": {
