@@ -12,7 +12,7 @@
   "devDependencies": {
     "@esscorp/eslint": "^2.4.1",
     "eslint": "^3.11.1",
-    "grunt": "^1.0.1",
+    "grunt": "^1.0.2",
     "grunt-contrib-watch": "^1.0.0",
     "grunt-eslint": "^19.0.0",
     "grunt-sloc": "^0.7.1",
