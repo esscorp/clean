@@ -9,12 +9,12 @@ module.exports = function(grunt) {
 			reportDetail: true
 			// tolerant: true
 		},
-		'all': {
+		all: {
 			files: {
 				'.': ['**']
 			}
 		},
-		'ours': {
+		ours: {
 			files: {
 				'.': [
 					'**',
