@@ -92,7 +92,7 @@ exports.nameBase = function(name) {
 
 exports.nameParse = function(name) {
 
-	Assert.ok(_.isString(name) || _.isNull(name), 'Param `name` must be string or null');
+	Assert.ok(_.isString(name) || _.isNull(name) || _.isUndefined(name), 'Param `name` must be string, null, or undefined');
 
 	var parsed = {
 		original: name,
