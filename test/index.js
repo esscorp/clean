@@ -2,9 +2,9 @@
 
 var _ = require('underscore');
 var Assert = require('assert');
-// var Mocha = require('mocha');
-// var describe = Mocha.describe;
-// var it = Mocha.it;
+var Mocha = require('mocha');
+var describe = Mocha.describe;
+var it = Mocha.it;
 
 var Clean = require('..');
 
