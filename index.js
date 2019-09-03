@@ -50,6 +50,11 @@ exports.name = function(name) {
 	return cleanedSides;
 };
 
+exports.isEmpty = function(phrase) {
+	if (phrase === undefined || phrase === null || !(phrase instanceof String) || phrase.trim === '') return true;
+	return false;
+};
+
 // todo: should the string lengths be similar? e.g., should 'de la rose hernandez' match 'hernandez'?
 // One limitation of this fnc is that the shorter the str
 // the more likely it will be matched against another string.
