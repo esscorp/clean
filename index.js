@@ -51,7 +51,7 @@ exports.name = function(name) {
 };
 
 exports.isEmpty = function(phrase) {
-	if (phrase === undefined || phrase === null || !(phrase instanceof String) || phrase.trim === '') return true;
+	if (phrase === undefined || phrase === null || phrase === '') return true;
 	return false;
 };
 
